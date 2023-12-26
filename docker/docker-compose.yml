@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:8.2.0
+    restart: always
+    volumes:
+      - ${PWD}/mysql:/var/lib/mysql
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      # You can use whatever password you like
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    #networks:
+    #  - banco_de_dados
+    ports:
+      - 3306:3306
+      - 33060:33060
+
+  adminer:
+    image: adminer:4.8.1
+    restart: always
+    ports:
+      - 8080:8080
+
+    #networks:
+    #  - banco_de_dados
+
+
+# networks:
+#   banco_de_dados:
+#     external: true
+#     driver: bridge
