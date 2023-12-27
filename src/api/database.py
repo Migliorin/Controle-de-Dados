@@ -4,7 +4,6 @@ class Database(AbstractConnect):
     def __init__(self,connection:Connect) -> None:
         if(isinstance(connection,Connect)):
             super().__init__(connection)
-            print(self.connection)
         else:
             raise Exception(f"Connection type is not allowed: {type(connection)}. Use {Connect.__name__} class")
         
