@@ -26,9 +26,12 @@
      - [X] Use database
  - Table
    - CRUD
-     - [ ] Create databases
-     - [ ] Show/read databases
-     - [ ] Update databases
-     - [ ] Delete databases
+     - [X] Create table
+     - [X] Show/read tables
+     - [ ] Update table
+     - [ ] Delete table
+  - Auxiliary functions
+     - [X] Send image to table
+     - [ ] Get image from table and decoded
    - Pre SQL querys
      - [X] Image table
