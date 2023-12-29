@@ -24,40 +24,41 @@ if __name__ == '__main__':
     #print(connection_class.is_open_connection())
     #connection_class.close()
     database_class = Database(connection_class)
-    table_class = Table(connection_class)
     table_default_class = TableQueryDefault()
+    table_class = Table(connection_class,table_default_class)
+
+    database = 'datasets_2'
 
     #try:
 
     #print(database_class.create_database("emotion"))
-    if(not database_class.database_exist("datasets")):
-        database_class.create_database("datasets")
+    if(not database_class.database_exist(database)):
+        database_class.create_database(database)
 
-    database_class.use_database("datasets")
+    database_class.use_database(database)
 
     if(not table_class.table_exist('emotion')):
-        sql_query_emotion = table_default_class.create_table_img_dataset('emotion')
-        table_class.create_table(table='emotion',query_sql=sql_query_emotion)
+        table_class.create_table(table='emotion',info_= 'create_table_img_dataset') # type: ignore
     if(not table_class.table_exist('emotion_inline')):
         table_class.create_table(
             table='emotion_inline',
-            column=['id','name','format','width','height','image'],
-            property_= [
-                ('INT','AUTO_INCREMENT','PRIMARY KEY'),
-                ('VARCHAR(255)'),
-                ('VARCHAR(15)'),
-                ('MEDIUMINT UNSIGNED'),
-                ('MEDIUMINT UNSIGNED'),
-                ('LONGBLOB')
-                ]
-            )
-    
+            info_={
+                "id": ('INT','AUTO_INCREMENT','PRIMARY KEY'),
+                "name": ('VARCHAR(255)'),
+                "format" : ('VARCHAR(15)'),
+                "width": ('MEDIUMINT UNSIGNED'),
+                "height" : ('MEDIUMINT UNSIGNED'),
+                "image" : ('LONGBLOB')
+            } # type: ignore
+        )
+        
+    from time import time
     info = {
-        "name": "me",
-        "format": "jpeg",
+        "name": f"me{str(int(time()))}",
+        "format": "jpg",
         "width": 120,
         "height":240,
-        "image": read_bytes_img("tmp/me.jpeg")
+        "image": read_bytes_img("tmp/me.jpg")
     }
         
     table_class.send_values_table("emotion",info=info)
