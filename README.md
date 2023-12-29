@@ -1,6 +1,6 @@
 # 1. Controle-de-Dados
 
-# 2. Class Diagram - In progress | ![](https://geps.dev/progress/32?dangerColor=800000&warningColor=ff9900&successColor=006600) |
+# 2. Class Diagram - In progress | ![](https://geps.dev/progress/35?dangerColor=800000&warningColor=ff9900&successColor=006600) |
 
 ![](./diagrams/imgs/class_diagram.png)
 
@@ -35,3 +35,4 @@
      - [ ] Get image from table and decoded
    - Pre SQL querys
      - [X] Image table
+     - [X] Fetch image from table
