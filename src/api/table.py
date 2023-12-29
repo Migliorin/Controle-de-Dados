@@ -2,15 +2,21 @@ from src.api.connect import Connect
 from src.api.connect import AbstractConnect
 
 class Table(AbstractConnect):
-    def __init__(self, connection: Connect) -> None:
+    def __init__(self, connection: Connect,table_query_default=None) -> None:
         super().__init__(connection)
+        self.table_query_default = table_query_default
 
     @Connect._is_open_connection
-    def create_table(self,table:str, column = None, property_= None, query_sql=None) -> None:
+    # def create_table(self,table:str, column = None, property_= None, query_sql=None) -> None:
+    def create_table(self,table:str, info_: dict) -> None:    
+
         if(self.table_exist(table)):
             raise Exception(f"The table already exists: {table}")
         
-        if(column is not None) and (property_ is not None):
+        if(isinstance(info_,dict)):
+            column = list(info_.keys())
+            property_ = [info_[x] for x in column]
+
             assert len(column) == len(property_)
             assert len(column) > 0
 
@@ -32,11 +38,13 @@ class Table(AbstractConnect):
             cursor.execute(f"{sql_query}")
             print("###### Table create sucessfully ######")
 
-        else:
-            if(query_sql is None):
-                raise Exception(f"Query SQL is None: {query_sql}")
+        elif(isinstance(info_,str)):
+            if(self.table_query_default is None):
+                raise Exception("Table query default didn't define: None")
+            sql_query = self.table_query_default.get_function(info_)
+            sql_query = sql_query(table)
             cursor = self.connection.cursor()
-            cursor.execute(f"{query_sql}")
+            cursor.execute(f"{sql_query}")
             print("###### Table create sucessfully ######")
 
     @Connect._is_open_connection
