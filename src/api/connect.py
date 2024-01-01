@@ -37,10 +37,8 @@ class Connect():
                 raise Exception(f"Failed to stable connection with {self.user}@{self.host}:{self.port} -> Database: {self.database}\nError: {error}")
             
     
-    def _is_open_connection(func,*args,**kwargs):
-        #print(f"Function: {func}: {args}, {kwargs}")
+    def _is_open_connection(func):
         def _decorator(self,*args,**kwargs):
-            #print('Params:',self,*args,**kwargs)
             if(self.connection is None):
                 raise Exception("###### Start a connection to start send commands ######")
             if(self.connection.is_connected()):
