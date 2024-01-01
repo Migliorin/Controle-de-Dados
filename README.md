@@ -13,6 +13,7 @@
 
 
 # 4. Todo list
+ - [ ] Update Diagram Class
  - [X] Simple connection interface
  - [X] Send image function using BLOB format and base64
  - [X] Receive image function and decoder
@@ -32,7 +33,7 @@
      - [ ] Delete table
   - Auxiliary functions
      - [X] Send image to table
-     - [ ] Get image from table and decoded
+     - [X] Get image from table and decoded
    - Pre SQL querys
      - [X] Image table
      - [X] Fetch image from table
