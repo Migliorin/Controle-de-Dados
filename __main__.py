@@ -55,13 +55,18 @@ if __name__ == '__main__':
     from time import time
     info = {
         "name": f"me{str(int(time()))}",
-        "format": "jpg",
+        "format": "jpeg",
         "width": 120,
-        "height":240,
-        "image": read_bytes_img("tmp/me.jpg")
+        "height": 240,
+        "image": read_bytes_img("tmp/me.jpeg")
     }
         
-    table_class.send_values_table("emotion",info=info)
+    #table_class.send_values_table("emotion",info=info)
+    image = table_class.get_value_table("emotion","fetch_image",1,column_name=["image"],filter_={"name":"me1704135018"})[0][0]
+    image = decode_bytes_img(image)
+    #image = image.resize((224,224))
+    image.show()
+    #print(image)
         
     # except Exception as e:
     #     print(e)
