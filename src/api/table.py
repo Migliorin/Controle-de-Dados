@@ -6,8 +6,29 @@ class Table(AbstractConnect):
         super().__init__(connection)
         self.table_query_default = table_query_default
 
+
     @Connect._is_open_connection
-    # def create_table(self,table:str, column = None, property_= None, query_sql=None) -> None:
+    def get_value_table(self,table:str,info_: str,query_size=1,**kwargs) -> list:
+        if(not self.table_exist(table)):
+            raise Exception(f"The table does not exists: {table}")
+        
+        if(isinstance(info_,str)):
+            if(self.table_query_default is None):
+                raise Exception("Table query default didn't define: None")
+            sql_query = self.table_query_default.get_function(info_)
+            sql_query = sql_query(table,**kwargs)
+            cursor = self.connection.cursor(buffered=True)
+            cursor.execute(f"{sql_query}")
+            print("###### Value get sucessfully ######")
+
+            result_query = cursor.fetchmany(query_size)
+
+            return result_query
+        
+        else:
+            raise Exception("Invalid format for get_value_table function")
+
+    @Connect._is_open_connection
     def create_table(self,table:str, info_: dict) -> None:    
 
         if(self.table_exist(table)):
